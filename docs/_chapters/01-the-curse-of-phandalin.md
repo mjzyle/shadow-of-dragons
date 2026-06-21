@@ -5,8 +5,19 @@ layout: page
 title: The Curse of Phandalin
 chapter: 1
 
-summary: "Summary coming soon..."
-
+summary: Four heroes attempt to save a cursed village in the highlands.
 ---
 
-Past session notes coming soon...
+*Four heroes attempt to save a cursed village in the highlands.*
+
+# The Extradimensional Manor
+
+*Coming soon...*
+
+# The Master of Curses
+
+*Coming soon...*
+
+# The Shadowfell
+
+*Coming soon...*

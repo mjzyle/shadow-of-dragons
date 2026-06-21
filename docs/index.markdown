@@ -19,6 +19,5 @@ Access the [virtual tabletop](https://www.owlbear.rodeo/room/gVJs33AZjTqK/The%20
 ## Chapters
 {% assign chapters = site.chapters | sort: 'chapter' %}
 {% for ch in chapters %}
-### [{{ ch.title }}]({{ ch.url | relative_url }})
-{% if ch.summary %}{{ ch.summary }}{% endif %}
+- [{{ ch.chapter }} -- {{ ch.title }}]({{ ch.url | relative_url }})
 {% endfor %}
