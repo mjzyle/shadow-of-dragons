@@ -1,0 +1,13 @@
+services:
+  jekyll:
+    build: .
+    image: shadow-of-dragons-jekyll
+    container_name: shadow-of-dragons-jekyll
+    working_dir: /site
+    volumes:
+      - .:/site
+    ports:
+      - "4000:4000"
+    stdin_open: true
+    tty: true
+    command: /bin/bash
