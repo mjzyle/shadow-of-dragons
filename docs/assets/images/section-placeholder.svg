@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Placeholder illustration">
+  <!-- Placeholder art for chapter sections: a moonlit mountain range in a gilt frame.
+       Mid-tone colors so it reads on both the parchment and dungeon palettes. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b2a1e"/>
+      <stop offset="1" stop-color="#7a5a3a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"/>
+  <circle cx="292" cy="92" r="30" fill="#e9d49c" opacity="0.9"/>
+  <path d="M0 230 L70 150 L110 190 L170 105 L230 185 L270 150 L330 210 L400 160 L400 300 L0 300 Z" fill="#2a1d14" opacity="0.75"/>
+  <path d="M0 260 L60 215 L120 250 L190 200 L250 245 L320 215 L400 250 L400 300 L0 300 Z" fill="#1c130d"/>
+  <path d="M170 105 L186 128 L178 124 L170 134 L162 124 L154 128 Z" fill="#e9d49c" opacity="0.5"/>
+  <rect x="6" y="6" width="388" height="288" fill="none" stroke="#c99a45" stroke-width="3"/>
+  <rect x="14" y="14" width="372" height="272" fill="none" stroke="#c99a45" stroke-width="1"/>
+</svg>

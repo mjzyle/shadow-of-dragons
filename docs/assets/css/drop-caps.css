@@ -1,0 +1,17 @@
+/*
+ * Illuminated drop cap on the first paragraph of each written chapter section
+ * (the paragraph right after the section's inset art).
+ * Skipped for "Coming soon..." placeholders (paragraphs that are all italics).
+ *
+ * Plain CSS on purpose: GitHub Pages compiles SCSS with Ruby Sass 3.7, which
+ * silently drops the :has() selector. Colors come from main.scss's palette.
+ */
+.chapter-content h2 + .section-art + p:not(:has(> em:only-child))::first-letter {
+  float: left;
+  font-family: "Cinzel", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  font-size: 3.4em;
+  line-height: 0.85;
+  padding: 0.08em 0.1em 0 0;
+  color: var(--dragon);
+}

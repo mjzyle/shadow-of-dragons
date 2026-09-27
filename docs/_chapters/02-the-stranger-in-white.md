@@ -1,7 +1,5 @@
 ---
 
-layout: page
-
 title: The Stranger in White
 chapter: 2
 

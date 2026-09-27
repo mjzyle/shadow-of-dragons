@@ -32,6 +32,15 @@ collections:
     output: true
     permalink: /chapters/:name/
 
+# Chapters use the themed chapter layout (_layouts/chapter.html) unless a
+# file sets its own layout in front matter.
+defaults:
+  - scope:
+      path: ""
+      type: chapters
+    values:
+      layout: chapter
+
 # Build settings
 theme: minima
 plugins:
