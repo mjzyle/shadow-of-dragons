@@ -1,7 +1,5 @@
 ---
 
-layout: page
-
 title: The Staff of Argonir
 chapter: 3
 

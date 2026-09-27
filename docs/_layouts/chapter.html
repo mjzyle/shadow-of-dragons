@@ -1,0 +1,60 @@
+---
+layout: default
+---
+{%- assign numerals = "I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX" | split: "," -%}
+{%- assign index = page.chapter | minus: 1 -%}
+{%- assign chapters = site.chapters | sort: "chapter" -%}
+{%- for ch in chapters -%}
+  {%- if ch.url == page.url -%}
+    {%- assign prev_index = forloop.index0 | minus: 1 -%}
+    {%- assign next_index = forloop.index0 | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<article class="chapter">
+
+  <header class="chapter-header">
+    <p class="chapter-number">Chapter {{ numerals[index] | default: page.chapter }}</p>
+    <h1 class="chapter-title">{{ page.title | escape }}</h1>
+  </header>
+
+  <div class="chapter-content">
+    {%- comment -%}
+      Insert an inset illustration after every section heading, alternating
+      left and right. Chapter files use both # and ## for sections, so # is
+      normalized to <h2> first (the page's only <h1> is the chapter title).
+      Splitting on "</h2>" leaves one piece per section: the first piece is
+      the summary, and every later piece starts right after a heading.
+      Images come from the optional `art` list in front matter, in section order.
+    {%- endcomment -%}
+    {%- assign body = content | replace: "<h1", "<h2" | replace: "</h1>", "</h2>" -%}
+    {%- assign pieces = body | split: "</h2>" -%}
+    {%- for piece in pieces -%}
+      {{ piece }}
+      {%- unless forloop.last -%}
+        </h2>
+        {%- assign section = forloop.index0 -%}
+        {%- assign remainder = section | modulo: 2 -%}
+        {%- if remainder == 0 -%}{%- assign side = "left" -%}{%- else -%}{%- assign side = "right" -%}{%- endif -%}
+        {%- assign section_art = page.art[section] -%}
+        {%- include section-art.html art=section_art side=side -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+
+  <nav class="chapter-nav" aria-label="Chapters">
+    {%- if prev_index >= 0 -%}
+      {%- assign prev = chapters[prev_index] -%}
+      <a class="chapter-nav-prev" href="{{ prev.url | relative_url }}">
+        <span class="chapter-nav-label">Previous</span>{{ prev.title | escape }}
+      </a>
+    {%- endif -%}
+    {%- if next_index < chapters.size -%}
+      {%- assign next = chapters[next_index] -%}
+      <a class="chapter-nav-next" href="{{ next.url | relative_url }}">
+        <span class="chapter-nav-label">Next</span>{{ next.title | escape }}
+      </a>
+    {%- endif -%}
+  </nav>
+
+</article>

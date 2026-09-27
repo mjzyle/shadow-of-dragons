@@ -1,0 +1,16 @@
+{%- comment -%}
+  Inset illustration at the start of a chapter section.
+  Parameters:
+    art   - optional { src, alt, caption } from the chapter's `art` front matter
+    side  - "left" or "right"
+  Without `art.src`, shows the placeholder (decorative, so empty alt text).
+{%- endcomment -%}
+{%- assign art = include.art -%}
+<figure class="section-art section-art-{{ include.side }}">
+  {%- if art.src -%}
+    <img src="{{ art.src | relative_url }}" alt="{{ art.alt | escape }}" loading="lazy">
+    {%- if art.caption -%}<figcaption>{{ art.caption | escape }}</figcaption>{%- endif -%}
+  {%- else -%}
+    <img src="{{ "/assets/images/section-placeholder.svg" | relative_url }}" alt="" loading="lazy">
+  {%- endif -%}
+</figure>

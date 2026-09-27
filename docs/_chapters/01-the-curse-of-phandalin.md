@@ -1,7 +1,5 @@
 ---
 
-layout: page
-
 title: The Curse of Phandalin
 chapter: 1
 
