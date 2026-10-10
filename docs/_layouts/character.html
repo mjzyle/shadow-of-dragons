@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{%- comment -%}
+  A wiki page for a party member. Front matter (written by matreus-sync-page):
+  - summary: one or two sentences shown in italics under the name, optional
+  - portrait: {src, alt}, optional
+  - details: [{label, value}], optional, shown as a ledger beside the portrait
+  The body is the intro text and any published sections.
+  The small label above the title comes from the collection's menu in
+  _data/navigation.yml, and links to the collection's landing page.
+{%- endcomment -%}
+{%- assign menu = site.data.navigation | where: "collection", page.collection | first -%}
+<article class="character">
+
+  <header class="chapter-header">
+    {%- if menu.label -%}
+      <p class="chapter-number"><a class="chapter-number-link" href="{{ menu.url | relative_url }}">{{ menu.label | escape }}</a></p>
+    {%- endif -%}
+    <h1 class="chapter-title">{{ page.title | escape }}</h1>
+    {%- if page.summary -%}
+      <p class="character-summary">{{ page.summary | escape }}</p>
+    {%- endif -%}
+  </header>
+
+  {%- if page.portrait or page.details -%}
+    <div class="character-card">
+      {%- if page.portrait -%}
+        <img class="character-portrait" src="{{ page.portrait.src | relative_url }}" alt="{{ page.portrait.alt | escape }}">
+      {%- endif -%}
+      {%- if page.details -%}
+        <table class="character-details">
+          {%- for detail in page.details -%}
+            <tr><th scope="row">{{ detail.label | escape }}</th><td>{{ detail.value | escape }}</td></tr>
+          {%- endfor -%}
+        </table>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="character-content">
+    {{ content }}
+  </div>
+
+</article>

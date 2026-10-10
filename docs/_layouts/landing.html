@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{%- comment -%}
+  Landing page for a collection, linked from its header menu (e.g. /party/).
+  Front matter:
+  - lists: the collection to show as cards (chapters, party, ...)
+  - portrait: {src, alt}, optional, e.g. a group picture
+  The page body is the intro text. Cards come from the collection, in the
+  same order as the header menu.
+{%- endcomment -%}
+{%- assign numerals = "I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX" | split: "," -%}
+{%- assign menu = site.data.navigation | where: "collection", page.lists | first -%}
+{%- assign items = site[page.lists] | sort: menu.sort_by -%}
+{%- assign intro = content | strip -%}
+
+<article class="landing">
+
+  <header class="chapter-header">
+    {%- if menu.label -%}<p class="chapter-number">{{ menu.label | escape }}</p>{%- endif -%}
+    <h1 class="chapter-title">{{ page.title | escape }}</h1>
+  </header>
+
+  {%- if page.portrait -%}
+    <img class="landing-portrait" src="{{ page.portrait.src | relative_url }}" alt="{{ page.portrait.alt | escape }}">
+  {%- endif -%}
+
+  {%- if intro != "" -%}
+    <div class="landing-intro">
+      {{ intro }}
+    </div>
+  {%- endif -%}
+
+  <ul class="landing-cards">
+    {%- for item in items -%}
+      <li>
+        <a class="landing-card" href="{{ item.url | relative_url }}">
+          {%- if item.portrait -%}
+            <img class="landing-card-image" src="{{ item.portrait.src | relative_url }}" alt="">
+          {%- endif -%}
+          <span class="landing-card-text">
+            {%- comment -%} Small line above the title: chapter number, or race and class. {%- endcomment -%}
+            {%- if item.chapter -%}
+              {%- assign index = item.chapter | minus: 1 -%}
+              <span class="landing-card-kicker">Chapter {{ numerals[index] | default: item.chapter }}</span>
+            {%- elsif item.details -%}
+              {%- assign race = item.details | where: "label", "Race" | first -%}
+              {%- assign char_class = item.details | where: "label", "Class" | first -%}
+              {%- if race or char_class -%}
+                <span class="landing-card-kicker">{{ race.value | escape }}{% if race and char_class %} · {% endif %}{{ char_class.value | escape }}</span>
+              {%- endif -%}
+            {%- endif -%}
+            <span class="landing-card-title">{{ item.title | escape }}</span>
+            {%- if item.summary -%}
+              <span class="landing-card-summary">{{ item.summary | escape }}</span>
+            {%- endif -%}
+          </span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+</article>

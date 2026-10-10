@@ -1,14 +1,47 @@
 {%- comment -%}
   Overrides Minima's header. Differences from the theme's version:
+  - Menus from _data/navigation.yml, one per collection (Story, Party, ...).
+    The menu name links to the collection's landing page; its dropdown opens
+    on hover or keyboard focus (assets/css/nav-menus.css). On phones the lists
+    are always shown inside Minima's collapsed menu, since there's no hover.
+  - Landing pages aren't listed again as top-level links.
   - The home page is left out of the nav (the site title already links there).
   - The nav, including the mobile menu button, only renders when it has links.
 {%- endcomment -%}
+{%- assign numerals = "I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX" | split: "," -%}
 {%- assign default_paths = site.pages | map: "path" -%}
 {%- assign page_paths = site.header_pages | default: default_paths -%}
 {%- capture nav_links -%}
+  {%- for menu in site.data.navigation -%}
+    {%- assign items = site[menu.collection] | sort: menu.sort_by -%}
+    {%- if items.size > 0 -%}
+      {%- assign landing = site.pages | where: "url", menu.url | first -%}
+      <div class="nav-menu">
+        {%- if landing -%}
+          <a class="page-link nav-menu-title" href="{{ menu.url | relative_url }}"
+             {%- if page.url == menu.url %} aria-current="page"{% endif %}>{{ menu.title | escape }}</a>
+        {%- else -%}
+          <span class="page-link nav-menu-title" tabindex="0">{{ menu.title | escape }}</span>
+        {%- endif -%}
+        <ul class="nav-menu-list">
+          {%- for item in items -%}
+            <li>
+              <a href="{{ item.url | relative_url }}"{% if item.url == page.url %} aria-current="page"{% endif %}>
+                {%- if item.chapter -%}
+                  {%- assign index = item.chapter | minus: 1 -%}
+                  <span class="nav-menu-numeral">{{ numerals[index] | default: item.chapter }}.</span>
+                {%- endif -%}
+                {{ item.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
   {%- for path in page_paths -%}
     {%- assign my_page = site.pages | where: "path", path | first -%}
-    {%- if my_page.title and my_page.url != "/" -%}
+    {%- if my_page.title and my_page.url != "/" and my_page.lists == nil -%}
       <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
     {%- endif -%}
   {%- endfor -%}
