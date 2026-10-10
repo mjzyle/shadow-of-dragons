@@ -31,15 +31,24 @@ collections:
   chapters:
     output: true
     permalink: /chapters/:name/
+  # Wiki pages. Each one also gets a menu in _data/navigation.yml.
+  party:
+    output: true
+    permalink: /party/:name/
 
-# Chapters use the themed chapter layout (_layouts/chapter.html) unless a
-# file sets its own layout in front matter.
+# Chapters use the themed chapter layout (_layouts/chapter.html) and wiki
+# pages the character layout, unless a file sets its own layout in front matter.
 defaults:
   - scope:
       path: ""
       type: chapters
     values:
       layout: chapter
+  - scope:
+      path: ""
+      type: party
+    values:
+      layout: character
 
 # Build settings
 theme: minima

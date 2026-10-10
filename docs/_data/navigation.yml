@@ -1,0 +1,21 @@
+# Menus in the site header (_includes/header.html).
+#
+# title:      the menu name in the header
+# url:        the landing page the menu name links to (layout: landing)
+# label:      small heading shown above titles on the collection's pages
+# collection: the dropdown lists every page in this collection, sorted by `sort_by`
+#
+# A menu is hidden until its collection has pages. If its landing page doesn't
+# exist yet, the menu name is plain text instead of a link.
+
+- title: Story
+  url: /chapters/
+  label: The Campaign
+  collection: chapters
+  sort_by: chapter
+
+- title: Party
+  url: /party/
+  label: The Party
+  collection: party
+  sort_by: title
